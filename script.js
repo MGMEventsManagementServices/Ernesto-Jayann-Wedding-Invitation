@@ -53,18 +53,23 @@ revealEls.forEach(el => revealObserver.observe(el));
 /* ---------------------------------------------------
     COUNTDOWN
 --------------------------------------------------- */
-const eventDate = new Date('August 22, 2026 18:00:00').getTime();
+const eventDate = new Date('September 20, 2026 18:00:00').getTime();
 const countdownEl = document.getElementById('countdown');
 const countdownMarriedEl = document.getElementById('countdownMarried');
 let countdownTimer = null;
 
 function updateCountdown() {
 const now = Date.now();
-const diff = Math.max(0, eventDate - now);
-    
+const diff = eventDate - now;
+
 if (diff <= 0) {
     countdownEl.hidden = true;
-    if (countdownMarriedEl) countdownMarriedEl.hidden = false;
+    countdownEl.style.display = 'none';
+    if (countdownMarriedEl) {
+    countdownMarriedEl.hidden = false;
+    countdownMarriedEl.style.display = '';
+    countdownMarriedEl.classList.add('is-visible');
+    }
     if (countdownTimer) clearInterval(countdownTimer);
     return;
 }
@@ -93,7 +98,7 @@ if (el.textContent !== padded) {
 }
 
 updateCountdown();
-setInterval(updateCountdown, 1000);
+countdownTimer = setInterval(updateCountdown, 1000);
 
 /* ---------------------------------------------------
     ENVELOPE GATE
@@ -170,7 +175,7 @@ if (window.confetti) {
     particleCount: 220,
     spread: 120,
     startVelocity: 38,
-    colors: ['#d9b56a', '#8a5cf6', '#f4e3b3', '#cdb6f5'],
+    colors: ['#f2f2f2', '#d0d0d0', '#8a8a8a', '#1a1a1a'],
     origin: { y: 0.6 }
     });
 }
@@ -209,6 +214,15 @@ envelope.classList.add('is-open');
 
 setTimeout(() => {
     gate.classList.add('is-hidden');
+
+    // No cinematic video published yet — skip straight to the celebration.
+    // Once the cinematic section + video are added back to the HTML, this
+    // will automatically pick the cinematic flow back up.
+    if (!cinematic || !cinematicVideo) {
+    ambientLayer.classList.remove('is-paused');
+    startCelebration();
+    return;
+    }
 
     // play cinematic intro, then reveal the celebration
     ambientLayer.classList.add('is-paused');
@@ -408,7 +422,7 @@ btn.addEventListener('click', () => {
 /* ---------------------------------------------------
     RSVP FORM — sends submissions to Google Sheet
 --------------------------------------------------- */
-const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx6rHqSr-l3kmIBLw_74MXRaWIfh3dXNzmLlBTazukm1D4YhegyfYWkYWBiKzA77A/exec';
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxDx8y9S9BKhg01195kDUMYCqHWniV6Dum-XBqcvvDZ3dkeoY2U_zSLjzKWNTCzG1gXEA/exec';
 
 const rsvpForm = document.getElementById('rsvpForm');
 const rsvpSuccess = document.getElementById('rsvpSuccess');
@@ -443,7 +457,7 @@ fetch(RSVP_ENDPOINT, {
         confetti({
         particleCount: 140,
         spread: 90,
-        colors: ['#d9b56a', '#8a5cf6', '#f4e3b3'],
+        colors: ['#f2f2f2', '#b8b8b8', '#1a1a1a'],
         origin: { y: 0.7 }
         });
     }
