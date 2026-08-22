@@ -53,7 +53,7 @@ revealEls.forEach(el => revealObserver.observe(el));
 /* ---------------------------------------------------
     COUNTDOWN
 --------------------------------------------------- */
-const eventDate = new Date('September 20, 2026 18:00:00').getTime();
+const eventDate = new Date('August 22, 2026 14:00:00').getTime();
 const countdownEl = document.getElementById('countdown');
 const countdownMarriedEl = document.getElementById('countdownMarried');
 let countdownTimer = null;

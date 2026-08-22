@@ -563,6 +563,11 @@ transition: transform .3s var(--ease), opacity .3s var(--ease);
 display:block; margin-top: 4px; font-size: 11px; letter-spacing: 2px;
 text-transform: uppercase; color: var(--text-mute); font-family: var(--font-display);
 }
+.countdown__married{
+font-family: var(--font-body); font-size: clamp(1.6rem, 4vw, 2.4rem);
+color: var(--lavender); margin: 0 0 46px; font-style: italic; text-align: center;
+}
+.countdown__married .script{ font-family: var(--font-script); font-size: 1.5em; color: var(--gold-soft); font-style: normal; }
 
 /* scroll cue */
 .scroll-cue{
