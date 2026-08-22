@@ -55,10 +55,19 @@ revealEls.forEach(el => revealObserver.observe(el));
 --------------------------------------------------- */
 const eventDate = new Date('August 22, 2026 18:00:00').getTime();
 const countdownEl = document.getElementById('countdown');
+const countdownMarriedEl = document.getElementById('countdownMarried');
+let countdownTimer = null;
 
 function updateCountdown() {
 const now = Date.now();
 const diff = Math.max(0, eventDate - now);
+    
+if (diff <= 0) {
+    countdownEl.hidden = true;
+    if (countdownMarriedEl) countdownMarriedEl.hidden = false;
+    if (countdownTimer) clearInterval(countdownTimer);
+    return;
+}
 
 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
